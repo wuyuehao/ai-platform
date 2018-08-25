@@ -166,8 +166,8 @@ def train(image_path='flaskr/planes/planesnet', image_format='*.png', train_test
         model.fit(x_train, y_train, epochs=EPOCHS, batch_size=BATCH_SIZE, callbacks=callbacks)
 
         mlflow.log_param("num_layers", num_layers)
-        model.save('./models/mnist_model.h5')
-        mlflow.log_artifacts('./models/')
+        #model.save('./models/mnist_model.h5')
+        mlflow.log_artifacts(log_dir)
 
         #mlflow.sklearn.log_model(model, "cnn")
         # Train the model
