@@ -9,7 +9,6 @@ import glob
 import numpy as np
 import os.path as path
 from scipy import misc
-import matplotlib.pyplot as plt
 from keras.models import Sequential
 from keras.layers import Activation, Dropout, Flatten, Dense, Conv2D, MaxPooling2D
 from keras.callbacks import EarlyStopping, TensorBoard
