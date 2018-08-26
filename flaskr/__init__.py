@@ -45,7 +45,7 @@ def create_app(test_config=None):
             result = executor.submit(task)
             print(result)
             return result
-        else if request.method == 'GET':
+        elif request.method == 'GET':
             executor.submit(task)
             result = executor.submit(task)
             print(result)
