@@ -51,6 +51,7 @@ def create_app(test_config=None):
             print(result)
             return result
         else:
+            return "hello"
 
 
     db.init_app(app)
