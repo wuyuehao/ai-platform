@@ -3,8 +3,7 @@ import os
 from flask import Flask
 from flask import request
 from . import db
-from . import ImageClassificationKeras as imageModel
-
+import docker
 
 executor = ThreadPoolExecutor(max_workers=3)
 
@@ -36,7 +35,8 @@ def create_app(test_config=None):
         return 'Hello, World!'
 
     def task():
-        imageModel.train(epochs=1)
+        c = docker.from_env()
+        c.containers.run('wuyuehao/ai:1.2','/workspace/ai-platform/runmodel.sh', network_mode='host')
 
     @app.route('/api/jobs', methods=['GET', 'POST'])
     def handleJobs():
