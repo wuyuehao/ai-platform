@@ -21,7 +21,8 @@ yarn-debug.log*
 yarn-error.log*
 
 run-*
-__*
 models/
 instance
 mlruns
+
+__pycache__
