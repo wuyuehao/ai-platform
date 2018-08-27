@@ -202,7 +202,7 @@ class TrainForm extends React.Component {
             {getFieldDecorator('maxBatchSize', { initialValue: 32 })(
               <InputNumber  />
             )}
-            {getFieldDecorator('numOfLayersStep', { initialValue: 32 })(
+            {getFieldDecorator('numOfBatchStep', { initialValue: 32 })(
               <InputNumber />
             )}
           </FormItem>
