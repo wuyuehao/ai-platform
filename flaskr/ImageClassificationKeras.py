@@ -175,4 +175,4 @@ def train(image_path='flaskr/planes/planesnet', image_format='*.png', train_test
 
 
 layer = sys.argv[1]
-train(num_layers=layer)
+train(num_layers=int(layer))
