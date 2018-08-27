@@ -164,9 +164,11 @@ def train(image_path='flaskr/planes/planesnet', image_format='*.png', train_test
 
     with mlflow.start_run():
 
-        model.fit(x_train, y_train, epochs=EPOCHS, batch_size=BATCH_SIZE, callbacks=callbacks)
+        hist = model.fit(x_train, y_train, epochs=EPOCHS, batch_size=BATCH_SIZE, callbacks=callbacks)
 
         mlflow.log_param("num_layers", num_layers)
+        for key, value in hist.history
+            mlflow.log_metric(key, value)
         #model.save('./models/mnist_model.h5')
         mlflow.log_artifacts(log_dir)
 
