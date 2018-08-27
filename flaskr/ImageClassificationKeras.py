@@ -167,10 +167,16 @@ def train(image_path='flaskr/planes/planesnet', image_format='*.png', train_test
         hist = model.fit(x_train, y_train, epochs=EPOCHS, batch_size=BATCH_SIZE, callbacks=callbacks)
 
         mlflow.log_param("num_layers", num_layers)
-        mlflow.log_metric("accuracy", hist.history['acc'][-1])
-        mlflow.log_metric("loss", hist.history['loss'][-1])
+        for val in hist.history['acc']:
+            mlflow.log_metric("accuracy", val)
+        for val in hist.history['loss']:
+            mlflow.log_metric("loss", val)
+        #mlflow.log_metric("accuracy", hist.history['acc'][-1])
+        #mlflow.log_metric("loss", hist.history['loss'][-1])
+
+        mlflow.keras.log_model(model, "./models")
         #model.save('./models/mnist_model.h5')
-        mlflow.log_artifacts(log_dir)
+        #mlflow.log_artifacts(log_dir)
 
         #mlflow.sklearn.log_model(model, "cnn")
         # Train the model
