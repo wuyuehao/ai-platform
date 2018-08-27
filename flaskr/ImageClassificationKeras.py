@@ -133,7 +133,7 @@ def cnn(size, n_layers):
     return model
 
 
-def train(image_path='flaskr/planes/planesnet', image_format='*.png', train_test_split=0.9, num_layers=4, epochs=2,batch_size=200):
+def train(image_path='flaskr/planes/planesnet', image_format='*.png', train_test_split=0.9, num_layers=4, epochs=5,batch_size=200):
 
 
     x_train,y_train,x_test,y_test,image_size = preprocess(image_path, image_format, train_test_split)

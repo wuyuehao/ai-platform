@@ -6,13 +6,14 @@ from . import db
 import docker
 import json
 from concurrent.futures import ThreadPoolExecutor
+from flask import Blueprint, send_from_directory
 
 executor = ThreadPoolExecutor(max_workers=3)
 
 
 def create_app(test_config=None):
     # create and configure the app
-    app = Flask(__name__, instance_relative_config=True)
+    app = Flask(__name__, instance_relative_config=True, static_folder='../build')
     app.config.from_mapping(
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
@@ -35,6 +36,14 @@ def create_app(test_config=None):
     @app.route('/hello')
     def hello():
         return 'Hello, World!'
+
+    @app.route('/', defaults={'path': ''})
+    @app.route('/<path:path>')
+    def serve(path):
+        if path != "":
+            return send_from_directory('../build', path)
+        else:
+            return send_from_directory('../build', 'index.html')
 
     def task():
         c = docker.from_env()
