@@ -17,6 +17,7 @@ from sklearn.metrics import accuracy_score, f1_score
 from datetime import datetime
 
 import mlflow
+import mlflow.keras
 import mlflow.sklearn
 
 
