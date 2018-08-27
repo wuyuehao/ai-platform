@@ -4,6 +4,7 @@ from flask import Flask
 from flask import request
 from . import db
 import docker
+import json
 from concurrent.futures import ThreadPoolExecutor
 
 executor = ThreadPoolExecutor(max_workers=3)
@@ -39,18 +40,33 @@ def create_app(test_config=None):
         c = docker.from_env()
         c.containers.run('wuyuehao/ai:1.2','/workspace/ai-platform/runmodel.sh', network_mode='host')
 
+    def task(layer):
+        c = docker.from_env()
+        c.containers.run('wuyuehao/ai:1.2','/workspace/ai-platform/runmodel.sh '+str(layer), network_mode='host')
+
+    def dummytask(layer):
+        print ("submit for layer = " +str(layer))
+
     @app.route('/api/jobs', methods=['GET', 'POST'])
     def handleJobs():
         if request.method == 'POST':
-            executor.submit(task)
-            result = executor.submit(task)
-            print(result)
-            return result
+            data = json.loads(request.data)
+            layerList = []
+            for i in range (data['minNumLayers'], data['maxNumLayers'], data['numOfLayersStep']):
+                layerList.append(i)
+            print(layerList)
+
+            for i in layerList:
+                executor.submit(dummytask(i))
+                executor.submit(task(i))
+
+
+            return str(len(layerList)) + " submitted"
+
         elif request.method == 'GET':
             executor.submit(task)
-            result = executor.submit(task)
-            print(result)
-            return result
+            executor.submit(task)
+            return "submitted"
         else:
             return "hello"
 

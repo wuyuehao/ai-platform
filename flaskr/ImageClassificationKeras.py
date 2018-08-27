@@ -1,9 +1,4 @@
 
-# coding: utf-8
-
-# In[135]:
-
-
 # Imports
 import glob
 import numpy as np
