@@ -1,5 +1,7 @@
 
 import os
+import sys
+
 
 os.environ['MLFLOW_TRACKING_URI'] = 'http://127.0.0.1:5000'
 
@@ -171,4 +173,6 @@ def train(image_path='flaskr/planes/planesnet', image_format='*.png', train_test
         #mlflow.sklearn.log_model(model, "cnn")
         # Train the model
 
-train()
+
+layer = sys.argv[1]
+train(num_layers=layer)

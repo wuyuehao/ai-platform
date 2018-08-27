@@ -1,2 +1,2 @@
 cd /workspace/ai-platform
-python3 flaskr/ImageClassificationKeras.py
+python3 flaskr/ImageClassificationKeras.py $1
