@@ -8,6 +8,7 @@ import { Layout, Menu, Breadcrumb,Row, Col } from 'antd';
 import Home from './components/Home'
 import Jupyter from './components/Jupyter'
 import Train from './components/Train'
+import Track from './components/Track'
 
 const { Header, Sider ,Content, Footer } = Layout;
 const routes = [
@@ -35,7 +36,7 @@ const routes = [
   {
     path: "/track",
     sidebar: () => <div>Track!</div>,
-    main: () => <h2>Track</h2>
+    main: () => <h2><Track/></h2>
   },
   {
     path: "/deploy",
@@ -50,8 +51,9 @@ class App extends Component {
     return (
       <Layout className="layout">
         <Header>
-          <div className="logo" />
-
+          <div className="logo">
+            <img src={require('./winterfell.png')} align="left" />
+          </div>
         </Header>
         <Layout style={{ padding: '24px 0', background: '#fff' }}>
         <Router>

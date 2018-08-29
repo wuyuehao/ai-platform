@@ -8,7 +8,7 @@ import json
 from concurrent.futures import ThreadPoolExecutor
 from flask import Blueprint, send_from_directory
 
-executor = ThreadPoolExecutor(max_workers=3)
+executor = ThreadPoolExecutor(max_workers=10)
 
 
 def create_app(test_config=None):
@@ -45,36 +45,35 @@ def create_app(test_config=None):
         else:
             return send_from_directory('../build', 'index.html')
 
-    def task():
-        c = docker.from_env()
-        c.containers.run('wuyuehao/ai:1.2','/workspace/ai-platform/runmodel.sh', network_mode='host')
-
     def task(layer):
         c = docker.from_env()
-        c.containers.run('wuyuehao/ai:1.2','/workspace/ai-platform/runmodel.sh '+str(layer), network_mode='host')
+        c.containers.run('wuyuehao/ai:1.2','/workspace/ai-platform/runmodela.sh '+str(layer), network_mode='host')
 
+    import time
     def dummytask(layer):
+        time.sleep(1)
         print ("submit for layer = " +str(layer))
+
 
     @app.route('/api/jobs', methods=['GET', 'POST'])
     def handleJobs():
         if request.method == 'POST':
-            data = json.loads(request.data)
+            data = json.loads(request.data.decode("utf-8"))
             layerList = []
             for i in range (data['minNumLayers'], data['maxNumLayers'], data['numOfLayersStep']):
                 layerList.append(i)
             print(layerList)
 
-            for i in layerList:
-                executor.submit(dummytask(i))
-                executor.submit(task(i))
-
+            executor.map(task, layerList)
 
             return str(len(layerList)) + " submitted"
 
         elif request.method == 'GET':
-            executor.submit(task)
-            executor.submit(task)
+            list = [3,4,5,6,7,8,9,10]
+            for i in list:
+                executor.submit(dummytask(i))
+                #executor.submit(task(i))
+
             return "submitted"
         else:
             return "hello"

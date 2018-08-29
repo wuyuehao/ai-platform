@@ -91,12 +91,11 @@ class TrainForm extends React.Component {
           <Card title="Local File System">
           <FormItem
             {...formItemLayout}
-            label="InputNumber"
+            label="InputData"
           >
-            {getFieldDecorator('inputURL', { initialValue: 3 })(
-              <InputNumber min={1} max={10} />
+            {getFieldDecorator('inputURL')(
+              <Input placeholder="/workspace/uploaded/images/" />
             )}
-            <span className="ant-form-text"> machines</span>
           </FormItem>
           </Card>
         }
@@ -105,12 +104,11 @@ class TrainForm extends React.Component {
           <Card title="Remote URL">
           <FormItem
             {...formItemLayout}
-            label="InputNumber"
+            label="InputData"
           >
-            {getFieldDecorator('inputURL', { initialValue: 3 })(
-              <InputNumber min={1} max={10} />
+            {getFieldDecorator('inputURL')(
+              <Input placeholder="/workspace/uploaded/images/" />
             )}
-            <span className="ant-form-text"> machines</span>
           </FormItem>
           </Card>
         }
@@ -120,13 +118,13 @@ class TrainForm extends React.Component {
             <FormItem
               {...formItemLayout}
               label="Upload"
-              extra="longgggggggggggggggggggggggggggggggggg"
+              extra=""
             >
               {getFieldDecorator('upload', {
                 valuePropName: 'fileList',
                 getValueFromEvent: this.normFile,
               })(
-                <Upload name="logo" action="/upload.do" listType="picture">
+                <Upload name="logo" action="/api/upload" listType="picture">
                   <Button>
                     <Icon type="upload" /> Click to upload
                   </Button>
@@ -139,7 +137,7 @@ class TrainForm extends React.Component {
 
 
 
-<Card title="Algorithm" bordered={false}>
+    <Card title="Algorithm" bordered={false}>
         <FormItem
           {...formItemLayout}
           label="Algorithm"
@@ -151,9 +149,22 @@ class TrainForm extends React.Component {
             ],
           })(
             <Select placeholder="Please select an Algorithm"
-            onChange={this.handleAlgSelectChange} >
+            onSelect={this.handleAlgSelectChange} >
               <Option value="s2s">Sequence to Sequence</Option>
               <Option value="img">Image Classification</Option>
+              <Option value="1">Linear</Option>
+              <Option value="2">K-Means</Option>
+              <Option value="3">PCA</Option>
+              <Option value="4">LDA</Option>
+              <Option value="5">NTM</Option>
+              <Option value="6">RandomForest</Option>
+              <Option value="7">XGBoost</Option>
+              <Option value="8">Object Detection</Option>
+              <Option value="9">Binary Classification</Option>
+              <Option value="10">Multiple Classification</Option>
+              <Option value="11">Sentiment Analysis</Option>
+              <Option value="12">Machine Translation</Option>
+              <Option value="13">Custom</Option>
             </Select>
           )}
         </FormItem>
@@ -167,7 +178,7 @@ class TrainForm extends React.Component {
             {getFieldDecorator('minNumLayers', { initialValue: 3 })(
               <InputNumber  />
             )}
-            {getFieldDecorator('maxNumLayers', { initialValue: 3 })(
+            {getFieldDecorator('maxNumLayers', { initialValue: 5 })(
               <InputNumber  />
             )}
             {getFieldDecorator('numOfLayersStep', { initialValue: 1 })(
@@ -254,22 +265,106 @@ class TrainForm extends React.Component {
               </Select>
             )}
           </FormItem>
-
-
-
           </Card>
         }
 
         {this.shows2s &&
+      <Card title="Hyper Parameters">
           <FormItem
             {...formItemLayout}
-            label="InputNumber"
+            label="num_layers"
           >
-            {getFieldDecorator('input-number', { initialValue: 3 })(
-              <InputNumber min={1} max={10} />
+            {getFieldDecorator('minNumLayers', { initialValue: 3 })(
+              <InputNumber  />
             )}
-            <span className="ant-form-text"> machines</span>
+            {getFieldDecorator('maxNumLayers', { initialValue: 5 })(
+              <InputNumber  />
+            )}
+            {getFieldDecorator('numOfLayersStep', { initialValue: 1 })(
+              <InputNumber />
+            )}
           </FormItem>
+
+
+          <FormItem
+            {...formItemLayout}
+            label="learning_rate"
+          >
+            {getFieldDecorator('minLearningRate', { initialValue: 0.1 })(
+              <InputNumber  />
+            )}
+            {getFieldDecorator('maxLearnRate', { initialValue: 0.1 })(
+              <InputNumber  />
+            )}
+            {getFieldDecorator('learningRateStep', { initialValue: 0.1 })(
+              <InputNumber />
+            )}
+          </FormItem>
+
+
+          <FormItem
+            {...formItemLayout}
+            label="batch_size"
+          >
+            {getFieldDecorator('minBatchSize', { initialValue: 32 })(
+              <InputNumber  />
+            )}
+            {getFieldDecorator('maxBatchSize', { initialValue: 32 })(
+              <InputNumber  />
+            )}
+            {getFieldDecorator('numOfBatchStep', { initialValue: 32 })(
+              <InputNumber />
+            )}
+          </FormItem>
+
+
+          <FormItem
+            {...formItemLayout}
+            label="num_training_samples"
+          >
+            {getFieldDecorator('numOfTrainingSamples', { initialValue: 10000 })(
+              <InputNumber  />
+            )}
+          </FormItem>
+
+
+          <FormItem
+            {...formItemLayout}
+            label="num_classes"
+          >
+            {getFieldDecorator('numOfClasses', { initialValue: 1 })(
+              <InputNumber  />
+            )}
+          </FormItem>
+
+          <FormItem
+            {...formItemLayout}
+            label="image_shape"
+          >
+            {getFieldDecorator('imageShape', { initialValue: '3, 20, 20'})(
+              <Input placeholder="3, 20, 20" />
+            )}
+          </FormItem>
+
+          <FormItem
+            {...formItemLayout}
+            label="optimizer"
+            hasFeedback
+          >
+            {getFieldDecorator('optimizer', {
+              rules: [
+                { required: true, message: 'Please select an Optimizer!' },
+              ],
+            })(
+              <Select placeholder="Please select an Optimizer">
+                <Option value="sgd">sgd</Option>
+                <Option value="adam">adam</Option>
+                <Option value="rmsprop">adam</Option>
+                <Option value="nag">adam</Option>
+              </Select>
+            )}
+          </FormItem>
+          </Card>
         }
 
 </Card>
