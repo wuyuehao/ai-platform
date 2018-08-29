@@ -47,7 +47,7 @@ def create_app(test_config=None):
 
     def task(layer):
         c = docker.from_env()
-        c.containers.run('wuyuehao/ai:1.2','/workspace/ai-platform/runmodela.sh '+str(layer), network_mode='host')
+        c.containers.run('wuyuehao/ai:1.2','/workspace/ai-platform/runmodel.sh '+str(layer), network_mode='host')
 
     import time
     def dummytask(layer):
