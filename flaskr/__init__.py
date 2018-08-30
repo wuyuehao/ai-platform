@@ -45,9 +45,12 @@ def create_app(test_config=None):
         else:
             return send_from_directory('../build', 'index.html')
 
-    def task(layer):
+    def task(input):
+
+        layer = input[0]
+        gpu = input[1]
         c = docker.from_env()
-        c.containers.run('wuyuehao/ai:1.2','/workspace/ai-platform/runmodel.sh '+str(layer), network_mode='host')
+        c.containers.run('wuyuehao/ai:1.2','/workspace/ai-platform/runmodel.sh '+str(layer), environment=["CUDA_VISIBLE_DEVICES="+gpu], network_mode='host')
 
     import time
     def dummytask(layer):
@@ -58,11 +61,16 @@ def create_app(test_config=None):
     @app.route('/api/jobs', methods=['GET', 'POST'])
     def handleJobs():
         if request.method == 'POST':
+            gpu = 0
             data = json.loads(request.data.decode("utf-8"))
             layerList = []
             for i in range (data['minNumLayers'], data['maxNumLayers'], data['numOfLayersStep']):
-                layerList.append(i)
-            print(layerList)
+                layerList.append([i,gpu])
+                if gpu== 0:
+                    gpu = 1
+                else:
+                    gpu = 0
+             print(layerList)
 
             executor.map(task, layerList)
 

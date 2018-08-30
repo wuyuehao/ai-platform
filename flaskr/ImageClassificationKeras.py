@@ -175,7 +175,7 @@ def train(image_path='flaskr/planes/planesnet', image_format='*.png', train_test
         #mlflow.log_metric("accuracy", hist.history['acc'][-1])
         #mlflow.log_metric("loss", hist.history['loss'][-1])
 
-        mlflow.keras.log_model(model, "./models")
+        #mlflow.keras.log_model(model, "./models")
         #model.save('./models/mnist_model.h5')
         #mlflow.log_artifacts(log_dir)
 
