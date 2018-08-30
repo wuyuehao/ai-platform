@@ -70,7 +70,7 @@ def create_app(test_config=None):
                     gpu = 1
                 else:
                     gpu = 0
-             print(layerList)
+            print(layerList)
 
             executor.map(task, layerList)
 
