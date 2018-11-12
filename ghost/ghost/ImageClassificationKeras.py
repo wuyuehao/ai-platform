@@ -20,8 +20,16 @@ import mlflow
 import mlflow.keras
 import mlflow.sklearn
 
+image_path ='/Users/tonywu/workspaces/react/ai-platform/flaskr/planes/planesnet'
 
-def preprocess(image_path, image_format='*.png', train_test_split=0.9):
+def setImagePath(path):
+    print("setting path :" + path)
+    global image_path
+    image_path = path
+
+
+def preprocess(image_format='*.png', train_test_split=0.9):
+
     file_paths = glob.glob(path.join(image_path, image_format))
     # Load the images
     images = [misc.imread(path) for path in file_paths]
@@ -133,14 +141,15 @@ def cnn(size, n_layers, learning_rate):
     return model
 
 
-def train(image_path='flaskr/planes/planesnet', image_format='*.png', train_test_split=0.9, num_layers=4, learning_rate=0.01, epochs=5,batch_size=200):
+def train(hyperparameters, image_format='*.png', train_test_split=0.9, epochs=5,batch_size=200):
 
+    print(hyperparameters)
     print(image_path)
 
-    x_train,y_train,x_test,y_test,image_size = preprocess(image_path, image_format, train_test_split)
+    x_train,y_train,x_test,y_test,image_size = preprocess(image_format, train_test_split)
     # Hyperparamater
-    N_LAYERS = num_layers
-    LEARNING_RATE = learning_rate
+    N_LAYERS = hyperparameters.get("num_layers")
+    LEARNING_RATE = hyperparameters.get("learning_rate")
 
     # Instantiate the model
     model = cnn(size=image_size, n_layers=N_LAYERS, learning_rate=LEARNING_RATE)
@@ -169,8 +178,8 @@ def train(image_path='flaskr/planes/planesnet', image_format='*.png', train_test
 
         hist = model.fit(x_train, y_train, epochs=EPOCHS, batch_size=BATCH_SIZE, callbacks=callbacks)
 
-        mlflow.log_param("hidden_layers", num_layers)
-        mlflow.log_param("learning_rate", learning_rate)
+        mlflow.log_param("hidden_layers", N_LAYERS)
+        mlflow.log_param("learning_rate", LEARNING_RATE)
         for val in hist.history['acc']:
             mlflow.log_metric("accuracy", val)
         for val in hist.history['loss']:

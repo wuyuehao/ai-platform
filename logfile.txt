@@ -1,0 +1,88 @@
+INFO (hyperopt.mongoexp): job exception: name 'hyperparameters' is not defined
+INFO (hyperopt.mongoexp): job exception: name 'self' is not defined
+INFO (hyperopt.mongoexp): job exception: name 'hyperparameters' is not defined
+INFO (hyperopt.mongoexp): job exception: name 'ick' is not defined
+INFO (hyperopt.mongoexp): job exception: 'HyperParameters' object has no attribute 'train'
+INFO (hyperopt.mongoexp): job exception: name 'train' is not defined
+INFO (hyperopt.mongoexp): job exception: name 'hyperparameters' is not defined
+INFO (hyperopt.mongoexp): job exception: name 'train' is not defined
+INFO (hyperopt.mongoexp): job exception: name 'train' is not defined
+INFO (hyperopt.mongoexp): job exception: name 'preprocess' is not defined
+INFO (hyperopt.mongoexp): job exception: name 'self' is not defined
+INFO (hyperopt.mongoexp): job exception: name 'hyperparameters' is not defined
+INFO (hyperopt.mongoexp): job exception: name 'hyperparameters' is not defined
+INFO (hyperopt.mongoexp): job exception: expected str, bytes or os.PathLike object, not dict
+INFO (hyperopt.mongoexp): job exception: expected str, bytes or os.PathLike object, not dict
+INFO (hyperopt.mongoexp): job exception: expected str, bytes or os.PathLike object, not dict
+INFO (hyperopt.mongoexp): job exception: expected str, bytes or os.PathLike object, not dict
+INFO (hyperopt.mongoexp): job exception: expected str, bytes or os.PathLike object, not dict
+INFO (hyperopt.mongoexp): Caught signal 2, shutting down.
+INFO (hyperopt.mongoexp): Error while unpickling.
+INFO (hyperopt.mongoexp): job exception: 2
+INFO (hyperopt.mongoexp): Caught signal 15, shutting down.
+INFO (hyperopt.mongoexp): job exception: tuple index out of range
+INFO (hyperopt.mongoexp): Caught signal 2, shutting down.
+INFO (hyperopt.mongoexp): Error while unpickling.
+INFO (hyperopt.mongoexp): job exception: 2
+INFO (hyperopt.mongoexp): Caught signal 15, shutting down.
+INFO (hyperopt.mongoexp): job exception: preprocess() takes from 0 to 2 positional arguments but 3 were given
+INFO (hyperopt.mongoexp): job exception: preprocess() takes from 0 to 2 positional arguments but 3 were given
+INFO (hyperopt.mongoexp): Caught signal 2, shutting down.
+INFO (hyperopt.mongoexp): Error while unpickling.
+INFO (hyperopt.mongoexp): job exception: 2
+INFO (hyperopt.mongoexp): Caught signal 15, shutting down.
+INFO (hyperopt.mongoexp): job exception: tuple index out of range
+INFO (hyperopt.mongoexp): job exception: tuple index out of range
+INFO (hyperopt.mongoexp): job exception: tuple index out of range
+INFO (hyperopt.mongoexp): job exception: tuple index out of range
+INFO (hyperopt.mongoexp): job exception: tuple index out of range
+INFO (hyperopt.mongoexp): job exception: tuple index out of range
+INFO (hyperopt.mongoexp): job exception: 'dict' object has no attribute 'num_layers'
+INFO (hyperopt.mongoexp): job exception: 'dict' object has no attribute 'num_layers'
+INFO (hyperopt.mongoexp): Caught signal 2, shutting down.
+INFO (hyperopt.mongoexp): Caught signal 15, shutting down.
+INFO (hyperopt.mongoexp): job exception: 15
+INFO (hyperopt.mongoexp): job exception: 'dict' object has no attribute 'num_layers'
+INFO (hyperopt.mongoexp): job exception: 'dict' object has no attribute 'num_layers'
+INFO (hyperopt.mongoexp): job exception: 'dict' object has no attribute 'num_layers'
+INFO (hyperopt.mongoexp): job exception: 'dict' object has no attribute 'num_layers'
+INFO (hyperopt.mongoexp): Caught signal 2, shutting down.
+INFO (hyperopt.mongoexp): Caught signal 15, shutting down.
+INFO (hyperopt.mongoexp): job exception: 15
+INFO (hyperopt.mongoexp): Caught signal 2, shutting down.
+INFO (hyperopt.mongoexp): Caught signal 15, shutting down.
+INFO (hyperopt.mongoexp): job exception: 15
+INFO (hyperopt.mongoexp): job exception: name 'num_layers' is not defined
+INFO (hyperopt.mongoexp): job exception: name 'num_layers' is not defined
+INFO (hyperopt.mongoexp): job exception: name 'num_layers' is not defined
+INFO (hyperopt.mongoexp): job exception: name 'num_layers' is not defined
+INFO (hyperopt.mongoexp): job exception: name 'num_layers' is not defined
+INFO (hyperopt.mongoexp): job exception: name 'num_layers' is not defined
+INFO (hyperopt.mongoexp): job exception: name 'num_layers' is not defined
+INFO (hyperopt.mongoexp): Caught signal 2, shutting down.
+INFO (hyperopt.mongoexp): Caught signal 15, shutting down.
+INFO (hyperopt.mongoexp): job exception: 15
+INFO (hyperopt.mongoexp): Caught signal 2, shutting down.
+INFO (hyperopt.mongoexp): Caught signal 15, shutting down.
+INFO (hyperopt.mongoexp): job exception: 15
+INFO (hyperopt.mongoexp): Caught signal 2, shutting down.
+INFO (hyperopt.mongoexp): Caught signal 15, shutting down.
+INFO (hyperopt.mongoexp): job exception: 15
+INFO (hyperopt.mongoexp): Caught signal 2, shutting down.
+INFO (hyperopt.mongoexp): Caught signal 15, shutting down.
+INFO (hyperopt.mongoexp): job exception: 15
+INFO (hyperopt.mongoexp): job exception: tuple index out of range
+INFO (hyperopt.mongoexp): job exception: tuple index out of range
+INFO (hyperopt.mongoexp): job exception: tuple index out of range
+INFO (hyperopt.mongoexp): job exception: tuple index out of range
+INFO (hyperopt.mongoexp): Error while unpickling.
+INFO (hyperopt.mongoexp): job exception: 'AUTOMLIB_DATA_PATH'
+INFO (hyperopt.mongoexp): Error while unpickling.
+INFO (hyperopt.mongoexp): job exception: 'AUTOMLIB_DATA_PATH'
+INFO (hyperopt.mongoexp): Error while unpickling.
+INFO (hyperopt.mongoexp): job exception: 'AUTOMLIB_DATA_PATH'
+INFO (hyperopt.mongoexp): Error while unpickling.
+INFO (hyperopt.mongoexp): job exception: 'AUTOMLIB_DATA_PATH'
+INFO (hyperopt.mongoexp): Caught signal 2, shutting down.
+INFO (hyperopt.mongoexp): Caught signal 15, shutting down.
+INFO (hyperopt.mongoexp): job exception: 15

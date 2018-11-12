@@ -1,14 +1,26 @@
 import os
 
-from flask import Flask
-from flask import request
+
 from . import db
 import docker
 import json
 from concurrent.futures import ThreadPoolExecutor
 from flask import Blueprint, send_from_directory
 
+
+from flask import Flask, request, redirect, url_for
+from werkzeug.utils import secure_filename
+from . import ModelUtils as mu
+
+UPLOAD_FOLDER = 'upload/models/'
+ALLOWED_EXTENSIONS = set(['zip','txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
+
 executor = ThreadPoolExecutor(max_workers=10)
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 def create_app(test_config=None):
@@ -17,6 +29,7 @@ def create_app(test_config=None):
     app.config.from_mapping(
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
+        UPLOAD_FOLDER=UPLOAD_FOLDER
     )
 
     if test_config is None:
@@ -31,6 +44,28 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
+
+    @app.route('/api/upload', methods=['GET', 'POST'])
+    def upload_file():
+        if request.method == 'POST':
+            # check if the post request has the file part
+            for filename, file in request.files.items():
+                print(filename)
+                if filename == '':
+                    print('No selected file')
+                    return "empty file name"
+                if file and allowed_file(filename):
+                    filename = secure_filename(filename)
+                    filePath = os.path.join(app.config['UPLOAD_FOLDER'], filename);
+                    file.save(filePath)
+                    print("saving...")
+                    print(filename)
+                    return json.dumps(mu.process_file(filePath), ensure_ascii=False)
+                else:
+                    print("illegal filename")
+                    return filename
+
+        return "Not Post?"
 
     # a simple page that says hello
     @app.route('/hello')

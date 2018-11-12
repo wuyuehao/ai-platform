@@ -26,3 +26,5 @@ instance
 mlruns
 
 __pycache__
+upload
+*.out

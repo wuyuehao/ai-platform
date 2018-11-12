@@ -2,13 +2,19 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { Layout, Menu, Breadcrumb,Row, Col } from 'antd';
+import { Layout, Menu, Breadcrumb,Row, Col ,Icon} from 'antd';
 
 
 import Home from './components/Home'
 import Jupyter from './components/Jupyter'
+import UploadModel from './components/UploadModel'
+import QuickServe from './components/QuickServe'
 import Train from './components/Train'
 import Track from './components/Track'
+import PropTypes from 'prop-types';
+
+const SubMenu = Menu.SubMenu;
+const MenuItemGroup = Menu.ItemGroup;
 
 const { Header, Sider ,Content, Footer } = Layout;
 const routes = [
@@ -24,8 +30,18 @@ const routes = [
     main: () => <div><Jupyter/></div>
   },
   {
+    path: "/upload",
+    sidebar: () => <div>Upload</div>,
+    main: () => <h2><UploadModel/></h2>
+  },
+  {
+    path: "/serve",
+    sidebar: () => <div>Serve</div>,
+    main: () => <h2><QuickServe/></h2>
+  },
+  {
     path: "/train",
-    sidebar: () => <div>Train!</div>,
+    sidebar: () => <div>Train</div>,
     main: () => <h2><Train/></h2>
   },
   {
@@ -46,66 +62,64 @@ const routes = [
 ];
 
 
+
+
+
 class App extends Component {
+
+  contextTypes :{
+    router: PropTypes.object
+  }
+
+  handleClick = (e) => {
+    console.log('click ', e.key);
+    //this.context.router.push(e.key);
+  }
+
+
   render() {
     return (
       <Layout className="layout">
         <Header>
-          <div className="logo">
-            <img src={require('./winterfell.png')} align="left" />
-          </div>
+          <h1><font color="white">TCS Management Portal</font></h1>
         </Header>
         <Layout style={{ padding: '24px 0', background: '#fff' }}>
         <Router>
-        <Row type="flex" justify="top">
-          <Col span={2}>
-            <div
-              style={{
-                padding: "10px",
-                width: "100%",
-                background: "#f0f0f0"
-              }}
-            >
-              <ul style={{ listStyleType: "none", padding: 0 }}>
-                <li>
-                  <Link to="/">Home</Link>
-                </li>
-                <li>
-                  <Link to="/jupyter">Jupyter</Link>
-                </li>
-                <li>
-                  <Link to="/train">Train</Link>
-                </li>
-                <li>
-                  <Link to="/tune">Tune</Link>
-                </li>
-                <li>
-                  <Link to="/track">Track</Link>
-                </li>
-                <li>
-                  <Link to="/deploy">Deploy</Link>
-                </li>
-              </ul>
+      <Row type="flex" justify="top">
+          <Col span={6}>
+          <Menu
+            onClick={this.handleClick}
+            style={{ width: 256 }}
+            defaultSelectedKeys={['1']}
+            defaultOpenKeys={['sub1']}
+            mode="inline"
+          >
+            <SubMenu key="sub1" title={<span><Icon type="appstore" /><span>TCS Sandbox</span></span>}>
 
-              {routes.map((route, index) => (
-                // You can render a <Route> in as many places
-                // as you want in your app. It will render along
-                // with any other <Route>s that also match the URL.
-                // So, a sidebar or breadcrumbs or anything else
-                // that requires you to render multiple things
-                // in multiple places at the same URL is nothing
-                // more than multiple <Route>s.
-                <Route
-                  key={index}
-                  path={route.path}
-                  exact={route.exact}
-                  component={route.sidebar}
-                />
-              ))}
-            </div>
+              <Menu.Item key="/upload"><Link to='/upload'>Upload Model</Link></Menu.Item>
+              <Menu.Item key="/serve"><Link to='/serve'>Serving</Link></Menu.Item>
 
-            </Col>
-            <Col span={22}>
+
+          </SubMenu>
+            <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>AI Playground</span></span>}>
+              <MenuItemGroup key="g2" title="Hyperparamater Search">
+                <Menu.Item key="/train"><Link to='/train'>Submit Jobs</Link ></Menu.Item>
+                <Menu.Item key="/track"><Link to='/track'>Tracking</Link></Menu.Item>
+              </MenuItemGroup>
+            </SubMenu>
+            <SubMenu key="sub3" title={<span><Icon type="setting" /><span>Tool Box</span></span>}>
+              <Menu.Item key="5">Under Construction</Menu.Item>
+              <Menu.Item key="6">Under Construction</Menu.Item>
+              <SubMenu key="sub3" title="Submenu">
+                <Menu.Item key="7">Under Construction</Menu.Item>
+                <Menu.Item key="8">Under Construction</Menu.Item>
+              </SubMenu>
+            </SubMenu>
+
+          </Menu>
+
+      </Col>
+      <Col span={18}>
 
           <div style={{ flex: 1, padding: "10px" }}>
             {routes.map((route, index) => (
@@ -121,7 +135,7 @@ class App extends Component {
             </div>
         </Col>
         </Row>
-          </Router>
+  </Router>
         </Layout>
 
 
