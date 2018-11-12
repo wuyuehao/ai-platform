@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
   Form, Select, Input, InputNumber, Switch, Radio,
-  Slider, Button, Upload, Icon, Rate,Divider, Modal, Card, Badge, Table, Tag
+  Slider, Button, Upload, Icon, Rate,Divider, Modal, Card, Badge, Table, Tag, message
 } from 'antd';
 
 const { Column, ColumnGroup } = Table;
@@ -9,6 +9,7 @@ const { Column, ColumnGroup } = Table;
 
 const FormItem = Form.Item;
 
+const Dragger = Upload.Dragger;
 
 class UploadModel extends Component {
 
@@ -18,15 +19,20 @@ class UploadModel extends Component {
   }
 
   onChange = (info) => {
-    let fileList = info.fileList;
-    let file = fileList[0];
-    console.log(file);
-    if (file && file.response) {
-        console.log('resposne:', file.response);
-        this.response = file.response;
-    }else{
-      console.log("no response yet");
+    const status = info.file.status;
+    if (status !== 'uploading') {
+      console.log(info.file, info.fileList);
     }
+    if (status === 'done') {
+      message.success(`${info.file.name} file uploaded successfully.`);
+      this.response = info.file.response;
+      console.log(this.response);
+    } else if (status === 'error') {
+      message.error(`${info.file.name} file upload failed.`);
+      this.response = info.file.response;
+      console.log(this.response);
+    }
+
   }
 
   normFile = (e) => {
@@ -47,40 +53,38 @@ class UploadModel extends Component {
     return (
 
 <Form onSubmit={this.handleSubmit}>
-<Card title="Upload required model data for verification">
-        <FormItem
-          {...formItemLayout}
-          label="Upload"
-          extra=""
-        >
+<Card title="Upload Model">
+        <FormItem>
           {getFieldDecorator('upload', {
             valuePropName: 'fileList',
             getValueFromEvent: this.normFile,
             onChange: this.onChange
           })(
-            <Upload  name="model.zip" action="/api/upload" listType="zip_safe">
-              <Button>
-                <Icon type="upload" /> Click to upload
-              </Button>
-            </Upload>
+            <Dragger name="model.zip" action="/api/upload" listType="zip_safe">
+                <p className="ant-upload-drag-icon">
+                  <Icon type="inbox" />
+                </p>
+                <p className="ant-upload-text">Click or drag file to this area to upload</p>
+                <p className="ant-upload-hint">
+                <Card
+                  type="inner"
+                  title="Model Format Requirements"
+                  extra={<a href="#">More</a>}
+                >
+                  <li>Model_Name/1/saved_model.pb</li>
+                  <li>Model_Name/1/variables/</li>
+                  <li>Model_Name/1/column_config.json</li>
+                </Card>
+                </p>
+              </Dragger>
           )}
         </FormItem>
 </Card>
-
-        {this.response &&
-        <Card title="Model Upload Status">
-        <Badge status="default" text="Model File" />
-        <br />
-        <Badge status="default" text="Raw DataSet" />
-        <br />
-        <Badge status="default" text="Transformed DataSet" />
-        <br />
-        <Badge status="default" text="Column Config" />
-        <br />
-        <Badge status="default" text="Expect Result" />
-        <br />
-
-        {this.response.serving_default &&
+        {this.response && !this.response.serving_default &&
+        <Card title="Model Upload Status" extra={<Tag color="red">Failed</Tag>}/>
+        }
+        {this.response && this.response.serving_default &&
+        <Card title="Model Upload Status" extra={<Tag color="green">Success</Tag>}>
         <div>
         <Badge status="success" text="Input Tensors" />
         <br/>
